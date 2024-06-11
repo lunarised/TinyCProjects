@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
+#include "moonPhase.c"
+#include "pithy.c"
 int main(int argc, char *argv[])
 {
   time_t now;
@@ -60,8 +62,15 @@ int main(int argc, char *argv[])
     putchar('?');
   }
   putchar('\n');
+  char moonPhase[17];
+  getMoonPhase(moonPhase, clock->tm_year + 1900, clock->tm_mon, clock->tm_mday);
 
   strftime(timeString, 64, "Today is %A, %B %d, %Y%nIt is %r%n", clock);
   printf("%s", timeString);
+  printf("The current moon is a %s\n", moonPhase);
+  int pithybuffer = 256;
+  char pithy[pithybuffer];
+  getPithy(pithybuffer, pithy);
+  printf("%s", pithy);
   return EXIT_SUCCESS;
 }
